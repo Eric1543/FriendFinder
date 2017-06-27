@@ -1,0 +1,29 @@
+1) You should always look for the bright side.
+2) Life is pain.
+3) I am very religious.
+4) Christopher Nolan is my favorite director.
+5) I like adventure.
+6) I like to travel.
+7) I like trying new things.
+8) Elon Musk is perhaps the greatest man who ever lived.
+9) What time is it? Beer:thirty.
+10) I would do anything for my friends.
+
+Rating Algorithm
+
+var topFriendScore = 0;
+var topFriend;
+
+for(var key in friendsArr){
+	var total = 0;
+	for(var i in friendsArr[key].scores){
+		total+=friendsArr[key].scores[i];
+		if(i == friendsArr[key].scores.length-1 & total > topFriendScore){
+			var topFriend = friendsArr[key].name;
+			topFriendScore = total;
+		}
+	}
+}
+
+$('#showFriend').addClass('modal');
+$('#showFriend').attr('style', 'modal styling')

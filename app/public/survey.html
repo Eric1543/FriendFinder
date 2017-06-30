@@ -192,11 +192,16 @@
       // var scores = [];
       // scores.push($('#q1').val());
       // Here we grab the form elements
-      var q1 = parseInt($("#q1").val());
+      var q = $("#q1").val();
+      var qArr = [];
+      console.log("Before parseInt: " + typeof(q) + " " + q);
+      var q1 = parseInt(q);
+      console.log("Q1 :" + typeof(q1) + " " + q1);
+      qArr.push(q1);
       var newFriend = {
         name: $("#inputName").val().trim(),
         photo: $("#linkedPhoto").val().trim(),
-        scores: [q1, parseInt($("#q2").val()), parseInt($("#q3").val()), parseInt($("#q4").val()), parseInt($("#q5").val()), parseInt($("#q6").val()), parseInt($("#q7").val()), parseInt($("#q8").val()), parseInt($("#q9").val()), parseInt($("#q10").val())]
+        scores: [qArr, parseInt($("#q2").val()), parseInt($("#q3").val()), parseInt($("#q4").val()), parseInt($("#q5").val()), parseInt($("#q6").val()), parseInt($("#q7").val()), parseInt($("#q8").val()), parseInt($("#q9").val()), parseInt($("#q10").val())]
         // scores: $("#reserve-unique-id").val().trim()
       };
         // Clear the form when submitting

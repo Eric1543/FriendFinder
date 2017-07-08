@@ -18,10 +18,14 @@ module.exports = function(app) {
 		var bestFriend;
 		var bestFriendIndex;
 
+		// For each potential friend in the api
 		for(var key in friendsArray){
 		  var friendTotal = 0;
+		  // For each question score of each potential friend
 		  for(var i in friendsArray[key].scores){
+		  	// Add the total differences (absolute) for each question
 		    friendTotal += Math.abs(friendsArray[key].scores[i]-friendsArray[friendsArray.length-1].scores[i]);
+		    // At the end of the survey questions, if the total is less than the best friend total then you have a new best friend.
 		    if(i==9 && friendTotal<bestFriendTotal && friendsArray[key]!=friendsArray[friendsArray.length-1]){
 		      bestFriendTotal = friendTotal;
 		      bestFriend = friendsArray[key].name;
@@ -31,5 +35,9 @@ module.exports = function(app) {
 		}
     console.log("Best Friend = ");
     console.log(bestFriend);
+
+    res.redirect('/home');
+    // alert(bestFriend);
+
   });
 };

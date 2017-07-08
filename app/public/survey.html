@@ -6,7 +6,7 @@
 
   <!-- Latest compiled and minified CSS & JS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="..css/style.css">
+  <link rel="stylesheet" type="text/css" href="~FriendFinder/app/css/style.css">
   <script src="https://code.jquery.com/jquery.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
@@ -35,7 +35,7 @@
           </div>
           <div class="panel-body">
 
-            <form role="form">
+            <form role="form" method="POST">
 
               <div class="form-group">
                 <label for="inputName">Name</label>
@@ -137,7 +137,7 @@
                   </select>
                 </div>
                <h3><strong>Question 9</strong></h3>
-                <h4>What time is it... beer: thirty!</h4>
+                <h4>I would do anything for my friends.</h4>
                 <div class="form-group">
                   <select class="form-control" id="q9">
                     <option>1</option>
@@ -148,7 +148,7 @@
                   </select>
                 </div>
                <h3><strong>Question 10</strong></h3>
-                <h4>I would do anything for my friends.</h4>
+                <h4>What time is it... beer: thirty!</h4>
                 <div class="form-group">
                   <select class="form-control" id="q10">
                     <option>1</option>
@@ -167,6 +167,16 @@
       </div>
     </div>
 
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Your New Best Friend Is... </p>
+      </div>
+
+    </div>
 
     <footer class="footer">
       <div class="container">
@@ -176,53 +186,36 @@
 
   </div>
 
-</body>
-</html>
+
 
 <!-- BELOW CODE IS CRITICAL. IT HANDLES HOW FORM DATA IS SENT TO OUR SERVER -->
 <script type="text/javascript">
 
-    // In this code below we create the Front-end JavaScript which "POSTS" our form data to our express server.
-    // In essence, when the user hits submit, jQuery grabs all of the fields then sends a post request to our api
-    // Our api recognizes the route (/api/tables)... and then runs the associated code (found in api-routes.js).
-    // In this case the associated code "saves" the data to the table-data.js file or waitinglist-data.js file
 
     $("#submitButton").on("click", function(event) {
       event.preventDefault();
-      // var scores = [];
-      // scores.push($('#q1').val());
-      // Here we grab the form elements
-      var q = $("#q1").val();
-      var qArr = [];
-      console.log("Before parseInt: " + typeof(q) + " " + q);
-      var q1 = parseInt(q);
-      console.log("Q1 :" + typeof(q1) + " " + q1);
-      qArr.push(q1);
+
+      // Grab form values and put inside of a newFriend object
       var newFriend = {
         name: $("#inputName").val().trim(),
         photo: $("#linkedPhoto").val().trim(),
-        scores: [qArr, parseInt($("#q2").val()), parseInt($("#q3").val()), parseInt($("#q4").val()), parseInt($("#q5").val()), parseInt($("#q6").val()), parseInt($("#q7").val()), parseInt($("#q8").val()), parseInt($("#q9").val()), parseInt($("#q10").val())]
-        // scores: $("#reserve-unique-id").val().trim()
+        scores: [$("#q1").val(), $("#q2").val(), $("#q3").val(), $("#q4").val(), $("#q5").val(), $("#q6").val(), $("#q7").val(), $("#q8").val(), $("#q9").val(), $("#q10").val()]
+
       };
-        // Clear the form when submitting
-        $("#inputName").val("");
-        $("#linkedPhoto").val("");
+      // Clear the form when submitting
+      $("#inputName").val("");
+      $("#linkedPhoto").val("");
 
-      console.log(newFriend);
-
-      // This line is the magic. It"s very similar to the standard ajax function we used.
-      // Essentially we give it a URL, we give it the object we want to send, then we have a "callback".
-      // The callback is the response of the server. In our case, we set up code in api-routes that "returns" true or false
-      // depending on if a tables is available or not.
-
-      $.post("/api/friends", newFriend,
-        function(data) {
-
-          // If a table is available... tell user they are booked.
-          if (data) {
-            alert("Yay! Friend added!");
-          }
-        });
+      $.post("/api/friends", newFriend)
+      .done(function(data) {
+        console.log("Posted");
+        alert("Post triggered.");
+        if (data) {
+          alert("Yay! Friend added!");
+        }
+      });
     });
 
 </script>
+</body>
+</html>

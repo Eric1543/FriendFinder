@@ -67,23 +67,3 @@ var friendsArray = [
 
 // Note how we export the array. This makes it accessible to other files using require.
 module.exports = friendsArray;
-
-// ***** Compatibility Ranking Algorithm ***** //
-
-var bestFriendTotal=50; 
-var bestFriend;
-var bestFriendIndex;
-
-for(var key in friendsArray){
-  var friendTotal = 0;
-  for(var i in friendsArray[key].scores){
-    friendTotal += Math.abs(friendsArray[key].scores[i]-friendsArray[friendsArray.length-1].scores[i]);
-    if(i==9 && friendTotal<bestFriendTotal && friendsArray[key]!=friendsArray[friendsArray.length-1]){
-      bestFriendTotal = friendTotal;
-      bestFriend = friendsArray[key].name;
-      bestFriendIndex = friendsArray[key];
-      console.log(friendTotal);
-      console.log(bestFriend);
-    }
-  }
-}

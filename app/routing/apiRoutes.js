@@ -33,12 +33,8 @@ module.exports = function(app) {
 		    }
 		  }
 		}
-
-		// Best friend is showing up in the BASH console, but am having a hard time getting it to show up as an alert or modal.
-    console.log("Best Friend = ");
-    console.log(bestFriend);
-
-    res.redirect('/home');
-
+    // console.log("Best Friend = ");
+    // console.log(bestFriend);
+    res.send(bestFriendIndex);
   });
 };
